@@ -1,14 +1,17 @@
 <?php
-header('Access-Control-Allow-Origin:*');
-header('Access-control-Allow-Headers','Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE');
+header("Access-Control-Allow-Origin: * ");
+// header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie,token');
+// header('Access-control-Allow-Headers','Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE');
 class ArticleController extends Controller{
 
 	public function actionCreate(){
-		$userId = $_POST['userId'];
-		$title = $_POST['title'];
-		$context = $_POST['context'];
-		$resource = isset($_POST['resource']) ? $_POST['resource'] : 0;
-		$from = isset($_POST['from']) ? $_POST['from'] : 0;
+		// $data = $_POST;
+		$data = json_decode(file_get_contents("php://input"), true);
+		$userId = $data['userId'];
+		$title = $data['title'];
+		$context = $data['context'];
+		$resource = isset($data['resource']) ? $data['resource'] : 0;
+		$from = isset($data['from']) ? $data['from'] : 0;
 		$return = array(
 			'code' => 0,
 			'msg' => '添加成功'
